@@ -1,0 +1,18 @@
+#!/bin/bash
+
+SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ "$(whoami)" != "root" ]; then
+    echo "You have to run as Superuser!"
+    exit 1
+fi
+
+if ! command -v wget &> /dev/null && ! command -v chmod &> /dev/null; then
+    echo "E: wget and chmod is Missing"
+    exit 1
+else
+    wget -q -O"$SCRIPTS_DIR/UniversalCleanup" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/UniversalCleanup
+    chmod +x "$SCRIPTS_DIR/UniversalCleanup"
+    wget -q -O"$SCRIPTS_DIR/CleanRam" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/CleanRam
+    chmod +x "$SCRIPTS_DIR/CleanRam"
+fi
