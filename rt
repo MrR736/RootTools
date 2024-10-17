@@ -1,0 +1,26 @@
+#!/bin/bash
+
+ROOT_TOOLS="/usr/scripts/RootTools"
+
+case "$1" in
+    -c)
+        $ROOT_TOOLS/UniversalCleanup
+        ;;
+    -cr)
+        $ROOT_TOOLS/CleanRam
+        ;;
+    -ut)
+        $ROOT_TOOLS/UpdateMgr
+        ;;
+    *)
+        echo
+        echo "Root Tools V0.1 By MrR736 : 2024-10-16"
+        echo
+        echo "Usage: rt <Commands>"
+        echo
+        echo "<Commands>"
+        echo "  -c : Universal Cleanup"
+        echo "  -cr : Clean Ram"
+        echo "  -ut : Update Tools"
+        ;;
+esac

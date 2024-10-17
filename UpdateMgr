@@ -1,0 +1,20 @@
+#!/bin/bash
+
+SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [ "$(whoami)" != "root" ]; then
+    echo "You have to run as Superuser!"
+    exit 1
+fi
+
+if ! command -v wget &> /dev/null && ! command -v chmod &> /dev/null && ! command -v rm &> /dev/null; then
+    echo "E: wget and chmod and rm is Missing"
+    exit 1
+else
+    echo "Update Tools..."
+fi
+
+wget -q -O"$SCRIPTS_DIR/Mgr" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/Mgr/Downloads
+chmod +x "$SCRIPTS_DIR/Mgr"
+$SCRIPTS_DIR/Mgr
+rm -rf "$SCRIPTS_DIR/Mgr"
