@@ -7,10 +7,11 @@ if [ "$(whoami)" != "root" ]; then
     exit 1
 fi
 
-if ! command -v wget &> /dev/null && ! command -v chmod &> /dev/null; then
-    echo "E: wget and chmod is Missing"
+if ! command -v wget &> /dev/null && ! command -v chmod &> /dev/null && ! command -v rm &> /dev/null; then
+    echo "E: wget and chmod and rm is Missing"
     exit 1
 else
+    rm -rf "$SCRIPTS_DIR/UniversalCleanup" "$SCRIPTS_DIR/CleanRam"
     wget -q -O"$SCRIPTS_DIR/UniversalCleanup" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/UniversalCleanup
     chmod +x "$SCRIPTS_DIR/UniversalCleanup"
     wget -q -O"$SCRIPTS_DIR/CleanRam" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/CleanRam
