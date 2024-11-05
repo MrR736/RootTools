@@ -79,8 +79,8 @@ dnf_operations() {
 }
 
 flatpak_operations() {
-    if ! command -v dnf &> /dev/null; then
-        echo "dnf is not installed!"
+    if ! command -v flatpak &> /dev/null; then
+        echo "flatpak is not installed!"
     else
         log_message "Starting DNF operations"
         echo 'Cleaning local repository of packages...'
@@ -243,6 +243,7 @@ universal_update() {
 update_system() {
   universal_update
   apt_operations
+  flatpak_operations
   dnf_operations
   yum_operations
   nix_operations
