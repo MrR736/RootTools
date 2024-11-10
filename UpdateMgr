@@ -2,19 +2,26 @@
 
 SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+for cmd in chmod cd wget pwd echo whoami; do
+    if ! command -v "$cmd" &> /dev/null; then
+        echo -e "\e[31mE: $cmd Is Not Installed.\e[0m" >&2
+        exit 1
+    fi
+done
+
 if [ "$(whoami)" != "root" ]; then
-    echo "You have to run as Superuser!"
+    echo -e "\e[31mE: You have to run as Superuser\e[0m" >&2
     exit 1
 fi
 
-if ! command -v wget &> /dev/null && ! command -v chmod &> /dev/null && ! command -v rm &> /dev/null; then
-    echo "E: wget and chmod and rm is Missing"
-    exit 1
-else
-    echo "Update Tools..."
-fi
+echo "Update Tools..."
 
 wget -q -O"$SCRIPTS_DIR/Mgr" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/Mgr/Downloads
-chmod +x "$SCRIPTS_DIR/Mgr"
-$SCRIPTS_DIR/Mgr
-rm -rf "$SCRIPTS_DIR/Mgr"
+
+if [ -f "$SCRIPTS_DIR/Mgr" ]; then
+    chmod +x "$SCRIPTS_DIR/Mgr"
+    $SCRIPTS_DIR/Mgr
+    rm -rf "$SCRIPTS_DIR/Mgr"
+fi
+
+echo "Root Tools has been Update Successfully."
