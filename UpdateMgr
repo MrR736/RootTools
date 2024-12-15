@@ -1,27 +1,33 @@
 #!/bin/bash
 
-SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DIR="$(dirname "$(readlink -f "${0}")")"
 
-for cmd in chmod cd wget pwd echo whoami; do
-    if ! command -v "$cmd" &> /dev/null; then
-        echo -e "\e[31mE: $cmd Is Not Installed.\e[0m" >&2
+Downloads_RT() {
+wget -q -O"$DIR/Mgr" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/Mgr/Downloads
+chmod +x "$DIR/Mgr"
+$DIR/Mgr
+
+rm -rf "$DIR/Mgr"
+}
+
+for cmd in wget chmod rm; do
+    if ! command -v rm &> /dev/null; then
+        echo -e "\e[31mE: \e[0m$cmd Is Not Installed"
         exit 1
     fi
 done
 
 if [ "$(whoami)" != "root" ]; then
-    echo -e "\e[31mE: You have to run as Superuser\e[0m" >&2
+    echo -e "\e[31mE: \e[0mYou Have To Run as Superuser"
     exit 1
 fi
 
-echo "Update Tools..."
+echo -ne "\rUpdate Tools."
+sleep 0.3
+echo -ne "\rUpdate Tools.."
+sleep 0.3
+echo -ne "\rUpdate Tools..."
 
-wget -q -O"$SCRIPTS_DIR/Mgr" https://raw.githubusercontent.com/MrR736/RootTools/refs/heads/main/Mgr/Downloads
+Downloads_RT
 
-if [ -f "$SCRIPTS_DIR/Mgr" ]; then
-    chmod +x "$SCRIPTS_DIR/Mgr"
-    $SCRIPTS_DIR/Mgr
-    rm -rf "$SCRIPTS_DIR/Mgr"
-fi
-
-echo "Root Tools has been Update Successfully."
+echo -ne "\rUpdate Tools Is Successfully\n"

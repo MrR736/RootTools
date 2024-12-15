@@ -15,7 +15,7 @@ CACHE_DIR="$REAL_HOME/.cache"
 SLEEP_TIME=1
 
 [[ $EUID -eq 0 ]] || {
-  echo "You have to run as Superuser!" >&2
+  echo -e "\e[31mE: \e[0mYou Have To Run as Superuser" >&2
   exit 1
 }
 
